@@ -154,6 +154,110 @@ func (j *Json) GetIndex(index int) *Json {
 	return &Json{nil}
 }
 
+// SizeIndex return a size to a new `Json` object
+// for `index` in its `array` representation
+//
+//   js.Get("top_level").Get("array").SizeIndex(1)
+func (j *Json) SizeIndex() (int, error){
+	a, err := j.Array()
+	if err == nil {
+		return len(a),nil
+	}
+	return 0, errors.New("object not an array")
+}
+
+// DelIndex modifies `Json` object in its `array` representation
+//  indicated by`key` deleting `index`th element. 
+func (j *Json) DelIndex(key string,index int) {
+	m, err := j.Map()
+	var b  []interface{}
+	if err == nil {
+		if val, ok := m[key]; ok {
+			if a, ok := val.([]interface{}); ok {
+				if (0<= index && index<len(a)) {
+					a = append(a[:index], a[index+1:]...)
+					b = make([]interface{}, len(a))
+					copy(b, a)
+//					c := b.(interface{})
+					m[key] = b
+				}
+			}
+		}
+	}
+	return
+}
+
+// ZeroIndex sets new `Json` object consisting of Zero element.
+func (j *Json) ZeroIndex(key string) {
+	m, err := j.Map()
+	var b  []interface{}
+	if err == nil {
+		        b = make([]interface{}, 0)
+				m[key] = b
+				return
+	}
+	return
+}
+
+// AddIndex modifies `Json` object in its `array` representation
+//  indicated by`key` adding `index`th element.  (`index` starts from 0 )
+// when such `Json` object  not exists
+// it sets new `Json` object consisting of Single element.
+func (j *Json) AddIndex(key string,index int, value interface{}) {
+	m, err := j.Map()
+	var b  []interface{}
+	if err == nil {
+		if val, ok := m[key]; ok {
+			if a, ok := val.([]interface{}); ok {
+				if (0<= index && index<len(a)) {
+    				b = make([]interface{}, len(a)+1)
+    				for i:=0; i<=len(a);i++ {
+    					if i<index               { b[i]=a[i] 
+    					} else if i == index { b[i] = value
+    					} else                     { b[i]=a[i-1]
+    					}
+    				}
+				} else {
+					b = append(a, value)
+				}
+				m[key] = b
+				return
+			}
+		}
+		b = make([]interface{},1)
+		b[0] = value
+		m[key] = b
+		return
+	}
+	return
+}
+
+// SetIndex modifies `Json` object in its `array` representation
+//  indicated by`key` replscing `index`th element.  (`index` starts from 0 )
+func (j *Json) SetIndex(key string,index int, value interface{}) {
+	m, err := j.Map()
+	var b  []interface{}
+	if err == nil {
+		if val, ok := m[key]; ok {
+			if a, ok := val.([]interface{}); ok {
+				if (0<= index && index<len(a)) {
+    				b = make([]interface{}, len(a))
+    				for i:=0; i<len(a);i++ {
+    					if i<index               { b[i]=a[i] 
+    					} else if i == index { b[i] = value
+    					} else                     { b[i]=a[i]
+    					}
+    			    }
+					m[key] = b
+					return
+				}
+			}
+		}
+	}
+	return
+}
+
+
 // CheckGet returns a pointer to a new `Json` object and
 // a `bool` identifying success or failure
 //

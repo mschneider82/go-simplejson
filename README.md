@@ -2,19 +2,19 @@
 
 This repository is folked from bitly, and changed by gdaisukesuzuki 
 
-so that "ARRAY" in JSON eaily handled using go-simplejson
+so that "ARRAY / SLICE" in JSON eaily handled using go-simplejson
 
 BY newley added 5 "METHODS"
 
-SizeIndex() ... returns a size of Array
+SizeIndex() ... returns a size of Array/Slice
 
-DelIndex() ... deletes one element of Array
+DelIndex() ... deletes one element of Array/Slice
 
-ZeroIndex ... creats or resets Array consisting zero element.
+ZeroIndex ... creats or resets Array/Slice consisting zero element.
 
-AddIndex ... adds one element of Array     ("Size" increased)
+AddIndex ... adds one element of Array/Slice     ("Size" increased)
 
-SetIndex ... replaces one element of Array ("Size" not changed)
+SetIndex ... replaces one element of Array/Slice ("Size" not changed)
 
 
 ### go-simplejson

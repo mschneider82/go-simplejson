@@ -7,9 +7,13 @@ so that "ARRAY" in JSON eaily handled using go-simplejson
 BY newley added 5 "METHODS"
 
 SizeIndex() ... returns a size of Array
+
 DelIndex() ... deletes one element of Array
+
 ZeroIndex ... creats or resets Array consisting zero element.
+
 AddIndex ... adds one element of Array     ("Size" increased)
+
 SetIndex ... replaces one element of Array ("Size" not changed)
 
 

@@ -25,7 +25,7 @@ a Go package to interact with arbitrary JSON
 
 ### Importing
 
-    ~~import~~ ~~github.com/bitly/go-simplejson~~
+    not available 
 
 ### Documentation
 

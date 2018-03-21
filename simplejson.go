@@ -138,6 +138,19 @@ func (j *Json) GetPath(branch ...string) *Json {
 	return jin
 }
 
+// GetPathWithArray for the item as specified by the branch
+// which is defined as array of string
+// Cited from Qiita.com and Contributed by TelesofFox (11/12/2015)
+// Ref. https://qiita.com/TalesofFox/items/5c147a19a9ae5c41f41a
+// 
+func (j *Json) GetPathWithArray(branch []string) *Json {
+    jin := j
+    for _, p := range branch {
+        jin = jin.Get(p)
+    }
+    return jin
+}
+
 // GetIndex returns a pointer to a new `Json` object
 // for `index` in its `array` representation
 //

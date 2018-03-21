@@ -8,7 +8,7 @@ import (
 
 // returns the current implementation version
 func Version() string {
-	return "0.5.0"
+	return "0.5.0-gds20180321"
 }
 
 type Json struct {

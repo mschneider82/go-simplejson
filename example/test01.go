@@ -6,6 +6,13 @@ import (
 	"encoding/json"
 )
 
+func EmptyJson() interface{} {
+	var fbyte interface{}
+	_ = json.Unmarshal([]byte(`{}`), &fbyte)
+    return fbyte
+  }
+
+	
 
 func main() {
   var jsonStr = `{"Name": "Ken", "Age": 32}`
@@ -38,6 +45,10 @@ func main() {
    js.AddIndex("Children",-1,fbyte3)
    k,_ = js.EncodePretty()
   fmt.Println(string(k)) // {Ken, 32}
+  js.AddIndex("Children",1,EmptyJson())
+  js.Get("Children").GetIndex(1).Set("Name","Takuya")
+  js.Get("Children").GetIndex(1).Set("Age","0")
+   k,_ = js.EncodePretty()
+  fmt.Println(string(k)) // {Ken, 32}
 
 }
-

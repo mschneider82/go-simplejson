@@ -1,6 +1,6 @@
 ### Uploaded by gdaisukesuzuki (3/23/2018)
 
-SampleCode (test01.go) setting Array of JSON/Struct Type.
+SampleCode (test01.go) Handling Array of JSON/Struct Type.
 
 
 ### Modified by gdaisukesuzuki (3/21/2018)

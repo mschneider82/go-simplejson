@@ -1,3 +1,8 @@
+### Uploaded by gdaisukesuzuki (3/23/2018)
+
+SampleCode (test01.go) setting Array of JSON/Struct Type.
+
+
 ### Modified by gdaisukesuzuki (3/21/2018)
 
 This repository is folked from bitly, and changed by gdaisukesuzuki 
@@ -17,11 +22,11 @@ AddIndex ... adds one element of Array/Slice     ("Size" increased)
 SetIndex ... replaces one element of Array/Slice ("Size" not changed)
 
 
-### Issues (as of 3/21/2018 18:00JST) 
+~~### Issues (as of 3/21/2018 18:00JST) ~~
 
-SetIndex can only set "Atom" type (ie int, string) but not set "Struct / Json" type.
+~~SetIndex can only set "Atom" type (ie int, string) but not set "Struct / Json" type.~~
 
-eg. js.Get("Top").Get("hoge").SetIndex("poi",1,'{"a":1,"b":"B"}')
+~~eg. js.Get("Top").Get("hoge").SetIndex("poi",1,'{"a":1,"b":"B"}')~~
 
 
 ### go-simplejson
@@ -32,7 +37,15 @@ a Go package to interact with arbitrary JSON
 
 ### Importing
 
-    not available 
+1. do on Terminal
+
+    go get github.com/gdaisukesuzuki/go-simplejson
+
+2. And in the field import () set as follows
+
+   "github.com/gdaisukesuzuki/go-simplejson"
+
+
 
 ### Documentation
 

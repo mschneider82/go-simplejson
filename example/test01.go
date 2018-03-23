@@ -34,7 +34,8 @@ func main() {
   if err3 != nil {
     panic(err3)
   }
-  
+
+   // Add "Taro"  as "Ken"'s child
    js.ZeroIndex("Children")
    js.AddIndex("Children",0,fbyte2)
    k,_ := js.EncodePretty()
@@ -42,13 +43,18 @@ func main() {
   js.Get("Children").GetIndex(0).Set("Sex","Male")
    k,_ = js.EncodePretty()
   fmt.Println(string(k)) // {Ken, 32}
+
+   // Add "Hanako"  as "Ken"'s child
    js.AddIndex("Children",-1,fbyte3)
    k,_ = js.EncodePretty()
   fmt.Println(string(k)) // {Ken, 32}
-  js.AddIndex("Children",1,EmptyJson())
+  
+// Add "Takuya" by building from emply data `{}`
+   js.AddIndex("Children",1,make(map[string]interface{}))
   js.Get("Children").GetIndex(1).Set("Name","Takuya")
   js.Get("Children").GetIndex(1).Set("Age","0")
    k,_ = js.EncodePretty()
   fmt.Println(string(k)) // {Ken, 32}
 
 }
+

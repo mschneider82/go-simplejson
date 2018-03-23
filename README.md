@@ -22,7 +22,7 @@ AddIndex ... adds one element of Array/Slice     ("Size" increased)
 SetIndex ... replaces one element of Array/Slice ("Size" not changed)
 
 
-~~### Issues (as of 3/21/2018 18:00JST) ~~
+~~### Issues (as of 3/21/2018 18:00JST)~~
 
 ~~SetIndex can only set "Atom" type (ie int, string) but not set "Struct / Json" type.~~
 
@@ -39,13 +39,18 @@ a Go package to interact with arbitrary JSON
 
 1. do on Terminal
 
-    go get github.com/gdaisukesuzuki/go-simplejson
+    % go get github.com/gdaisukesuzuki/go-simplejson
 
-2. And in the field import () set as follows
+2. And in the source code, set as follows
+
+import (
 
    "github.com/gdaisukesuzuki/go-simplejson"
 
-
+    ...
+    
+ )
+ 
 
 ### Documentation
 

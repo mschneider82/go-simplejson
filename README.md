@@ -1,3 +1,17 @@
+### Modified by gdaisukesuzuki (3/29/2018)
+
+newly added 4 "methods"
+
+SetEmpty
+
+SetEmptyPath
+
+SetEmptyIndex
+
+AddEmptyIndex
+
+which replace/add JSON's emplty element `{}` instead of some `value`
+
 ### Uploaded by gdaisukesuzuki (3/23/2018)
 
 SampleCode (test01.go) Handling Array of JSON/Struct Type.

@@ -8,7 +8,7 @@ import (
 
 // returns the current implementation version
 func Version() string {
-	return "0.5.0-gds20180321"
+	return "0.5.0"
 }
 
 type Json struct {
@@ -63,6 +63,13 @@ func (j *Json) Set(key string, val interface{}) {
 	m[key] = val
 }
 
+
+// SetEmpty modifies `Json` map by `key` and empty JSON `{}` 
+func (j *Json) SetEmpty(key string) {
+	j.Set(string, make(map[string]interface{}))
+	return
+}
+
 // SetPath modifies `Json`, recursively checking/creating map keys for the supplied path,
 // and then finally writing in the value
 func (j *Json) SetPath(branch []string, val interface{}) {
@@ -102,6 +109,12 @@ func (j *Json) SetPath(branch []string, val interface{}) {
 	curr[branch[len(branch)-1]] = val
 }
 
+// SetPath modifies `Json`, recursively checking/creating map keys for the supplied path,
+// and then finally writing in empty JSON `{}` 
+func (j *Json) SetEmptyPath(branch []string) {
+	SetPath(branch, make(map[string]interface{}))
+}
+
 // Del modifies `Json` map by deleting `key` if it is present.
 func (j *Json) Del(key string) {
 	m, err := j.Map()
@@ -138,19 +151,6 @@ func (j *Json) GetPath(branch ...string) *Json {
 	return jin
 }
 
-// GetPathWithArray for the item as specified by the branch
-// which is defined as array of string
-// Cited from Qiita.com and Contributed by TelesofFox (11/12/2015)
-// Ref. https://qiita.com/TalesofFox/items/5c147a19a9ae5c41f41a
-// 
-func (j *Json) GetPathWithArray(branch []string) *Json {
-    jin := j
-    for _, p := range branch {
-        jin = jin.Get(p)
-    }
-    return jin
-}
-
 // GetIndex returns a pointer to a new `Json` object
 // for `index` in its `array` representation
 //
@@ -170,7 +170,7 @@ func (j *Json) GetIndex(index int) *Json {
 // SizeIndex return a size to a new `Json` object
 // for `index` in its `array` representation
 //
-//   js.Get("top_level").Get("array").SizeIndex(1)
+//   js.Get("top_level").Get("array").SizeIndex()
 func (j *Json) SizeIndex() (int, error){
 	a, err := j.Array()
 	if err == nil {
@@ -212,6 +212,8 @@ func (j *Json) ZeroIndex(key string) {
 	return
 }
 
+func (*
+
 // AddIndex modifies `Json` object in its `array` representation
 //  indicated by`key` adding `index`th element.  (`index` starts from 0 )
 // when such `Json` object  not exists
@@ -245,8 +247,15 @@ func (j *Json) AddIndex(key string,index int, value interface{}) {
 	return
 }
 
+// AddEmptyIndex modifies `Json` object in its `array` representation
+//  indicated by`key` adding `index`th element as empty JSON `{}` 
+func (j *Json) AddEmptyIndex(key string,index int, value interface{}) {
+	AddIndex(key, index, make(map[string]interface{}))
+}
+
+
 // SetIndex modifies `Json` object in its `array` representation
-//  indicated by`key` replscing `index`th element.  (`index` starts from 0 )
+//  indicated by`key` replacing `index`th element.  (`index` starts from 0 )
 func (j *Json) SetIndex(key string,index int, value interface{}) {
 	m, err := j.Map()
 	var b  []interface{}
@@ -268,6 +277,12 @@ func (j *Json) SetIndex(key string,index int, value interface{}) {
 		}
 	}
 	return
+}
+
+// SetEmptyIndex modifies `Json` object in its `array` representation
+//  indicated by`key` replacing `index`th element as empty JSON `{}` 
+func (j *Json) SetEmptyIndex(key string,index int, value interface{}) {
+	SetIndex(key, index, make(map[string]interface{}))
 }
 
 

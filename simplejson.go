@@ -249,7 +249,7 @@ func (j *Json) AddIndex(key string,index int, value interface{}) {
 
 // AddEmptyIndex modifies `Json` object in its `array` representation
 //  indicated by`key` adding `index`th element as empty JSON `{}` 
-func (j *Json) AddEmptyIndex(key string,index int, value interface{}) {
+func (j *Json) AddEmptyIndex(key string,index int) {
 	AddIndex(key, index, make(map[string]interface{}))
 }
 
@@ -281,7 +281,7 @@ func (j *Json) SetIndex(key string,index int, value interface{}) {
 
 // SetEmptyIndex modifies `Json` object in its `array` representation
 //  indicated by`key` replacing `index`th element as empty JSON `{}` 
-func (j *Json) SetEmptyIndex(key string,index int, value interface{}) {
+func (j *Json) SetEmptyIndex(key string,index int) {
 	SetIndex(key, index, make(map[string]interface{}))
 }
 

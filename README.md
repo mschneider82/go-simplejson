@@ -2,19 +2,19 @@
 
 newly added 4 "methods"
 
-SetEmpty()
+`SetEmpty()`
 
-SetEmptyPath()
+`SetEmptyPath()`
 
-SetEmptyIndex()
+`SetEmptyIndex()`
 
-AddEmptyIndex()
+`AddEmptyIndex()`
 
 which replace/add JSON's emplty element `{}` instead of some `value`
 
 ### Uploaded by gdaisukesuzuki (3/23/2018)
 
-SampleCode (test01.go) Handling Array of JSON/Struct Type.
+SampleCode (`test01.go`) Handling Array of JSON/Struct Type.
 
 
 ### Modified by gdaisukesuzuki (3/21/2018)
@@ -25,15 +25,15 @@ so that "ARRAY / SLICE" in JSON eaily handled using go-simplejson
 
 BY newley added 5 "METHODS"
 
-SizeIndex() ... returns a size of Array/Slice
+`SizeIndex()` ... returns a size of Array/Slice
 
-DelIndex() ... deletes one element of Array/Slice
+`DelIndex()` ... deletes one element of Array/Slice
 
-ZeroIndex() ... creats or resets Array/Slice consisting zero element.
+`ZeroIndex()` ... creats or resets Array/Slice consisting zero element.
 
-AddIndex() ... adds one element of Array/Slice     ("Size" increased)
+`AddIndex()` ... adds one element of Array/Slice     ("Size" increased)
 
-SetIndex() ... replaces one element of Array/Slice ("Size" not changed)
+`SetIndex()` ... replaces one element of Array/Slice ("Size" not changed)
 
 
 ~~### Issues (as of 3/21/2018 18:00JST)~~
@@ -53,17 +53,17 @@ a Go package to interact with arbitrary JSON
 
 1. do on Terminal
 
-    % go get github.com/gdaisukesuzuki/go-simplejson
+    `% go get github.com/gdaisukesuzuki/go-simplejson`
 
 2. And in the source code, set as follows
 
-import (
+`import (
 
    "github.com/gdaisukesuzuki/go-simplejson"
 
     ...
     
- )
+ )`
  
 
 ### Documentation

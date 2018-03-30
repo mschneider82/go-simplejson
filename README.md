@@ -57,13 +57,10 @@ a Go package to interact with arbitrary JSON
 
 2. And in the source code, set as follows
 
-`import (
-
-   "github.com/gdaisukesuzuki/go-simplejson"
-
-    ...
-    
- )`
+`import (`
+`   "github.com/gdaisukesuzuki/go-simplejson"`
+`    ...`
+` )`
  
 
 ### Documentation

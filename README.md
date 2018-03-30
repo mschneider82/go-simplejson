@@ -2,13 +2,13 @@
 
 newly added 4 "methods"
 
-`SetEmpty()`
+`SetEmpty()` ... modified from `Set()`
 
-`SetEmptyPath()`
+`SetEmptyPath()` ... modified from `SetPath()`
 
-`SetEmptyIndex()`
+`SetEmptyIndex()` ... modified from `SetIndex()`
 
-`AddEmptyIndex()`
+`AddEmptyIndex()` ... modified from `AddIndex()`
 
 which replace/add JSON's emplty element `{}` instead of some `value`
 

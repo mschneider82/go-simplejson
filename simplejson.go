@@ -66,7 +66,7 @@ func (j *Json) Set(key string, val interface{}) {
 
 // SetEmpty modifies `Json` map by `key` and empty JSON `{}` 
 func (j *Json) SetEmpty(key string) {
-	j.Set(string, make(map[string]interface{}))
+	j.Set(key, make(map[string]interface{}))
 	return
 }
 
@@ -112,7 +112,7 @@ func (j *Json) SetPath(branch []string, val interface{}) {
 // SetPath modifies `Json`, recursively checking/creating map keys for the supplied path,
 // and then finally writing in empty JSON `{}` 
 func (j *Json) SetEmptyPath(branch []string) {
-	SetPath(branch, make(map[string]interface{}))
+	j.SetPath(branch, make(map[string]interface{}))
 }
 
 // Del modifies `Json` map by deleting `key` if it is present.
@@ -248,7 +248,7 @@ func (j *Json) AddIndex(key string,index int, value interface{}) {
 // AddEmptyIndex modifies `Json` object in its `array` representation
 //  indicated by`key` adding `index`th element as empty JSON `{}` 
 func (j *Json) AddEmptyIndex(key string,index int) {
-	AddIndex(key, index, make(map[string]interface{}))
+	j.AddIndex(key, index, make(map[string]interface{}))
 }
 
 
@@ -280,7 +280,7 @@ func (j *Json) SetIndex(key string,index int, value interface{}) {
 // SetEmptyIndex modifies `Json` object in its `array` representation
 //  indicated by`key` replacing `index`th element as empty JSON `{}` 
 func (j *Json) SetEmptyIndex(key string,index int) {
-	SetIndex(key, index, make(map[string]interface{}))
+	j.SetIndex(key, index, make(map[string]interface{}))
 }
 
 

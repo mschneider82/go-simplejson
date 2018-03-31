@@ -212,8 +212,6 @@ func (j *Json) ZeroIndex(key string) {
 	return
 }
 
-func (*
-
 // AddIndex modifies `Json` object in its `array` representation
 //  indicated by`key` adding `index`th element.  (`index` starts from 0 )
 // when such `Json` object  not exists

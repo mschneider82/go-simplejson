@@ -28,6 +28,15 @@ a Go package to interact with arbitrary JSON
 
 Visit the docs on [gopkgdoc](http://godoc.org/github.com/bitly/go-simplejson)
 
+## Modified by gdaisukesuzuki (4/8/2018)
+
+trying adding 1 "methods"
+
+`GetMatchesIndex()`
+
+return indexes from array whose keys(s) match value(s)
+
+
 ### Modified by gdaisukesuzuki (3/31/2018)
 
 Fix the bugs.

@@ -600,3 +600,18 @@ func (j *Json) GetMatchesIndex(key []string, value [](interface{})) ([]int , err
 	}
 	return c,nil
 }
+
+// Under Test
+// return Json's from array whose keys match value
+func (j *Json) GetMatchesIndexArray(key []string, value [](interface{})) ([]*Json, error) {
+	var c []*Json
+	c = make([]*Json,0)
+	matchindex, err := j.GetMatchesIndex(key, value)
+	if err != nil {
+		return nil, err
+	}
+	for  _,v :=  range matchindex {
+		c = append(c, j.GetIndex(v))
+	}
+	return c,nil
+}

@@ -30,12 +30,11 @@ Visit the docs on [gopkgdoc](http://godoc.org/github.com/bitly/go-simplejson)
 
 ## Modified by gdaisukesuzuki (4/8/2018)
 
-trying adding 1 "methods" (currently buggy)
+trying adding 2 "methods" (currently buggy)
 
-`GetMatchesIndex()`
+`GetMatchesIndex()` ... return indexes from array whose keys(s) match value(s)
 
-return indexes from array whose keys(s) match value(s)
-
+`GetMatchesIndexJson()` ... return Json's from array whose keys(s) match value(s)
 
 ### Modified by gdaisukesuzuki (3/31/2018)
 

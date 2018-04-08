@@ -577,15 +577,18 @@ func (j *Json) MustUint64(args ...uint64) uint64 {
 
 // Under Test
 // return indexes from array whose keys match value
-func (j *Json) GetMatchesIndex(key []string, value [](interface{})) ([]int , error) {
+func (j *Json) GetMatchesIndex(key []string, value [](interface{})) ([]int , []*Json, error) {
 	var c []int
+	var d []*Json
 	c = make([]int,0)
+	d = make([]*Json,0)
+
 	if len(key) != len(value) {
-		return nil, errors.New("Numbers of Parameters not matched")
+		return nil, nil, errors.New("Numbers of Parameters not matched")
 	}
 	a, err := j.Array()
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	var b bool
 	
@@ -596,22 +599,8 @@ func (j *Json) GetMatchesIndex(key []string, value [](interface{})) ([]int , err
 		}
 		if b {
 			c = append(c, i)
+			d = append(d, &Json{a[i]})
 		}
 	}
-	return c,nil
-}
-
-// Under Test
-// return Json's from array whose keys match value
-func (j *Json) GetMatchesIndexArray(key []string, value [](interface{})) ([]*Json, error) {
-	var c []*Json
-	c = make([]*Json,0)
-	matchindex, err := j.GetMatchesIndex(key, value)
-	if err != nil {
-		return nil, err
-	}
-	for  _,v :=  range matchindex {
-		c = append(c, j.GetIndex(v))
-	}
-	return c,nil
+	return c,d, nil
 }

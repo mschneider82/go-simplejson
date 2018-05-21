@@ -26,7 +26,7 @@ a Go package to interact with arbitrary JSON
 
 ### Documentation
 
-Visit the docs on [gopkgdoc](http://godoc.org/github.com/bitly/go-simplejson)
+Visit the docs on [gopkgdoc](https://godoc.org/github.com/gdaisukesuzuki/go-simplejson)
 
 ## Modified by gdaisukesuzuki (4/8/2018)
 

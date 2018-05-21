@@ -3,7 +3,7 @@
 
 ### go-simplejson
 
-a Go package to interact with arbitrary JSON
+a Go package to interact with arbitrary handling indexed/array-type data (bitly lacks).
 
 ~~[![Build Status]~~~~(https://secure.travis-ci.org/bitly/go-simplejson.png)~~~~](http://travis-ci.org/bitly/go-simplejson)~~
 

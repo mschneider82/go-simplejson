@@ -55,27 +55,28 @@ func (j *Json) MarshalJSON() ([]byte, error) {
 
 // Set modifies `Json` map by `key` and `value`
 // Useful for changing single key/value in a `Json` object easily.
-func (j *Json) Set(key string, val interface{}) {
+func (j *Json) Set(key string, val interface{}) error {
 	m, err := j.Map()
 	if err != nil {
-		return
+		return err
 	}
 	m[key] = val
+	return nil
 }
 
-
-// SetEmpty modifies `Json` map by `key` and empty JSON `{}` 
-func (j *Json) SetEmpty(key string) {
-	j.Set(key, make(map[string]interface{}))
-	return
+// SetEmpty modifies `Json` map by `key` and empty JSON `{}`
+func (j *Json) SetEmpty(key string) error {
+	err := j.Set(key, make(map[string]interface{}))
+	return err
 }
 
 // SetPath modifies `Json`, recursively checking/creating map keys for the supplied path,
 // and then finally writing in the value
-func (j *Json) SetPath(branch []string, val interface{}) {
+// Buggy and Deprecated
+func (j *Json) SetPath(branch []string, val interface{}) error {
 	if len(branch) == 0 {
 		j.data = val
-		return
+		return nil
 	}
 
 	// in order to insert our branch, we need map[string]interface{}
@@ -107,21 +108,24 @@ func (j *Json) SetPath(branch []string, val interface{}) {
 
 	// add remaining k/v
 	curr[branch[len(branch)-1]] = val
+	return nil
 }
 
 // SetPath modifies `Json`, recursively checking/creating map keys for the supplied path,
-// and then finally writing in empty JSON `{}` 
-func (j *Json) SetEmptyPath(branch []string) {
-	j.SetPath(branch, make(map[string]interface{}))
+// and then finally writing in empty JSON `{}`
+// deprecated
+func (j *Json) SetEmptyPath(branch []string) error {
+	return j.SetPath(branch, make(map[string]interface{}))
 }
 
 // Del modifies `Json` map by deleting `key` if it is present.
-func (j *Json) Del(key string) {
+func (j *Json) Del(key string) error {
 	m, err := j.Map()
 	if err != nil {
-		return
+		return err
 	}
 	delete(m, key)
+	return nil
 }
 
 // Get returns a pointer to a new `Json` object
@@ -143,6 +147,7 @@ func (j *Json) Get(key string) *Json {
 // without the need to deep dive using Get()'s.
 //
 //   js.GetPath("top_level", "dict")
+// deprecated
 func (j *Json) GetPath(branch ...string) *Json {
 	jin := j
 	for _, p := range branch {
@@ -171,118 +176,123 @@ func (j *Json) GetIndex(index int) *Json {
 // for `index` in its `array` representation
 //
 //   js.Get("top_level").Get("array").SizeIndex()
-func (j *Json) SizeIndex() (int, error){
+func (j *Json) SizeIndex() (int, error) {
 	a, err := j.Array()
 	if err == nil {
-		return len(a),nil
+		return len(a), nil
 	}
 	return 0, errors.New("object not an array")
 }
 
 // DelIndex modifies `Json` object in its `array` representation
-//  indicated by`key` deleting `index`th element. 
-func (j *Json) DelIndex(key string,index int) {
+//  indicated by`key` deleting `index`th element.
+func (j *Json) DelIndex(key string, index int) error {
 	m, err := j.Map()
-	var b  []interface{}
+	var b []interface{}
 	if err == nil {
 		if val, ok := m[key]; ok {
 			if a, ok := val.([]interface{}); ok {
-				if (0<= index && index<len(a)) {
+				if 0 <= index && index < len(a) {
 					a = append(a[:index], a[index+1:]...)
 					b = make([]interface{}, len(a))
 					copy(b, a)
-//					c := b.(interface{})
+					//					c := b.(interface{})
 					m[key] = b
 				}
 			}
 		}
 	}
-	return
+	return err
 }
 
 // ZeroIndex sets new `Json` object consisting of Zero element.
-func (j *Json) ZeroIndex(key string) {
+func (j *Json) ZeroIndex(key string) error {
 	m, err := j.Map()
-	var b  []interface{}
+	var b []interface{}
 	if err == nil {
-		        b = make([]interface{}, 0)
-				m[key] = b
-				return
+		b = make([]interface{}, 0)
+		m[key] = b
+		return nil
 	}
-	return
+	return err
 }
 
 // AddIndex modifies `Json` object in its `array` representation
 //  indicated by`key` adding `index`th element.  (`index` starts from 0 )
 // when such `Json` object  not exists
 // it sets new `Json` object consisting of Single element.
-func (j *Json) AddIndex(key string,index int, value interface{}) {
+func (j *Json) AddIndex(key string, index int, value interface{}) error {
 	m, err := j.Map()
-	var b  []interface{}
+	var b []interface{}
 	if err == nil {
 		if val, ok := m[key]; ok {
 			if a, ok := val.([]interface{}); ok {
-				if (0<= index && index<len(a)) {
-    				b = make([]interface{}, len(a)+1)
-    				for i:=0; i<=len(a);i++ {
-    					if i<index               { b[i]=a[i] 
-    					} else if i == index { b[i] = value
-    					} else                     { b[i]=a[i-1]
-    					}
-    				}
+				if 0 <= index && index < len(a) {
+					b = make([]interface{}, len(a)+1)
+					for i := 0; i <= len(a); i++ {
+						if i < index {
+							b[i] = a[i]
+						} else if i == index {
+							b[i] = value
+						} else {
+							b[i] = a[i-1]
+						}
+					}
 				} else {
 					b = append(a, value)
 				}
 				m[key] = b
-				return
+				return nil
 			}
 		}
-		b = make([]interface{},1)
+		b = make([]interface{}, 1)
 		b[0] = value
 		m[key] = b
-		return
+		return nil
 	}
-	return
+	return err
 }
 
 // AddEmptyIndex modifies `Json` object in its `array` representation
-//  indicated by`key` adding `index`th element as empty JSON `{}` 
-func (j *Json) AddEmptyIndex(key string,index int) {
-	j.AddIndex(key, index, make(map[string]interface{}))
+//  indicated by`key` adding `index`th element as empty JSON `{}`
+func (j *Json) AddEmptyIndex(key string, index int) error {
+	return j.AddIndex(key, index, make(map[string]interface{}))
 }
-
 
 // SetIndex modifies `Json` object in its `array` representation
 //  indicated by`key` replacing `index`th element.  (`index` starts from 0 )
-func (j *Json) SetIndex(key string,index int, value interface{}) {
+func (j *Json) SetIndex(key string, index int, value interface{}) error {
 	m, err := j.Map()
-	var b  []interface{}
+	var b []interface{}
 	if err == nil {
 		if val, ok := m[key]; ok {
 			if a, ok := val.([]interface{}); ok {
-				if (0<= index && index<len(a)) {
-    				b = make([]interface{}, len(a))
-    				for i:=0; i<len(a);i++ {
-    					if i<index               { b[i]=a[i] 
-    					} else if i == index { b[i] = value
-    					} else                     { b[i]=a[i]
-    					}
-    			    }
+				if 0 <= index && index < len(a) {
+					b = make([]interface{}, len(a))
+					for i := 0; i < len(a); i++ {
+						if i < index {
+							b[i] = a[i]
+						} else if i == index {
+							b[i] = value
+						} else {
+							b[i] = a[i]
+						}
+					}
 					m[key] = b
-					return
+					return nil
 				}
 			}
 		}
+		return errors.New("Error: no place to fill-in")
 	}
-	return
+	return err
 }
 
 // SetEmptyIndex modifies `Json` object in its `array` representation
-//  indicated by`key` replacing `index`th element as empty JSON `{}` 
-func (j *Json) SetEmptyIndex(key string,index int) {
-	j.SetIndex(key, index, make(map[string]interface{}))
+//  indicated by`key` replacing `index`th element as empty JSON `{}`
+func (j *Json) SetEmptyIndex(key string, index int) error {
+	return j.SetIndex(key, index, make(map[string]interface{}))
 }
-
 
 // CheckGet returns a pointer to a new `Json` object and
 // a `bool` identifying success or failure
@@ -577,11 +587,11 @@ func (j *Json) MustUint64(args ...uint64) uint64 {
 
 // Under Test
 // return indexes from array whose keys match value
-func (j *Json) GetMatchesIndex(key []string, value [](interface{})) ([]int , []*Json, error) {
+func (j *Json) GetMatchesIndex(key []string, value [](interface{})) ([]int, []*Json, error) {
 	var c []int
 	var d []*Json
-	c = make([]int,0)
-	d = make([]*Json,0)
+	c = make([]int, 0)
+	d = make([]*Json, 0)
 
 	if len(key) != len(value) {
 		return nil, nil, errors.New("Numbers of Parameters not matched")
@@ -591,16 +601,16 @@ func (j *Json) GetMatchesIndex(key []string, value [](interface{})) ([]int , []*
 		return nil, nil, err
 	}
 	var b bool
-	
-	for i:=0; i<len(a); i++ {
+
+	for i := 0; i < len(a); i++ {
 		b = true
-		for k:=0; k<len(key); k++ {
-			b = b && (a[i].(map[string]interface{} )[key[k]] ==  value[k])
+		for k := 0; k < len(key); k++ {
+			b = b && (a[i].(map[string]interface{})[key[k]] == value[k])
 		}
 		if b {
 			c = append(c, i)
 			d = append(d, &Json{a[i]})
 		}
 	}
-	return c,d, nil
+	return c, d, nil
 }

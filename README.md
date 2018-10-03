@@ -28,6 +28,32 @@ a Go package to interact with arbitrary handling indexed/array-type data (bitly 
 
 Visit the docs on [gopkgdoc](https://godoc.org/github.com/gdaisukesuzuki/go-simplejson)
 
+## Modified by gdaisukesuzuki (10/3/2018)
+
+Change Set/Add/Del..method returning value of error
+
+`Set()`
+
+`SetEmpty()`
+
+`SetPath()` ... deprecated and will be deleted
+
+`SetEmptyPath()` ... deprecated and will be deleted
+
+`Del()`
+
+`DelIndex()`
+
+`ZeroIndex()`
+
+`AddIndex()`
+
+`AddEmptyIndex()`
+
+`SetIndex()`
+
+`SetEmptyIndex()`
+
 ## Modified by gdaisukesuzuki (4/8/2018)
 
 trying adding 1 "method" (currently buggy)

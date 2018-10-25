@@ -13,8 +13,15 @@ lacks).
 In this fork the json calls are replaced from encoding/json to the faster
 json-iterator/go library.
 
-json-iterator is expored to Jsoniter, so the properties like HTML encoding can be changed.
+json-iterator is exported as simplejson.Jsoniter, so the properties like HTML encoding can be changed:
 
+```
+	simplejson.Jsoniter = jsoniter.Config{
+		EscapeHTML:             true,
+		SortMapKeys:            true,
+		ValidateJsonRawMessage: false,
+	}.Froze()
+```
 
 ~~[![Build Status]~~~~(https://secure.travis-ci.org/bitly/go-simplejson.png)~~~~](http://travis-ci.org/bitly/go-simplejson)~~
 
@@ -22,13 +29,13 @@ json-iterator is expored to Jsoniter, so the properties like HTML encoding can b
 
 1. do on Terminal
 
-    `% go get github.com/gdaisukesuzuki/go-simplejson`
+    `% go get github.com/mschneider82/go-simplejson`
 
 2. And in the source code, set as follows
 
 `import (`
 
-`   "github.com/gdaisukesuzuki/go-simplejson"`
+`   "github.com/mschneider82/go-simplejson"`
 
 `    ...`
 
@@ -37,7 +44,14 @@ json-iterator is expored to Jsoniter, so the properties like HTML encoding can b
 
 ### Documentation
 
-Visit the docs on [gopkgdoc](https://godoc.org/github.com/gdaisukesuzuki/go-simplejson)
+Visit the docs on
+[gopkgdoc](https://godoc.org/github.com/mschneider82/go-simplejson)
+
+## Modified by Matthias Schneider (10/25/2018)
+
+Changed encoding/json to the faster jsonitor.
+The Jsonitor config is exported and can be changed
+https://godoc.org/github.com/json-iterator/go#Config
 
 ## Modified by gdaisukesuzuki (10/3/2018)
 

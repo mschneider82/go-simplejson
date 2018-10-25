@@ -3,7 +3,6 @@
 package simplejson
 
 import (
-	"encoding/json"
 	"errors"
 	"io"
 	"reflect"
@@ -12,14 +11,14 @@ import (
 // NewFromReader returns a *Json by decoding from an io.Reader
 func NewFromReader(r io.Reader) (*Json, error) {
 	j := new(Json)
-	dec := json.NewDecoder(r)
+	dec := Jsoniter.NewDecoder(r)
 	err := dec.Decode(&j.data)
 	return j, err
 }
 
-// Implements the json.Unmarshaler interface.
+// Implements the Jsoniter.Unmarshaler interface.
 func (j *Json) UnmarshalJSON(p []byte) error {
-	return json.Unmarshal(p, &j.data)
+	return Jsoniter.Unmarshal(p, &j.data)
 }
 
 // Float64 coerces into a float64

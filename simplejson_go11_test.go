@@ -4,10 +4,11 @@ package simplejson
 
 import (
 	"bytes"
-	"encoding/json"
-	"github.com/stretchr/testify/assert"
+	stdjson "encoding/json"
 	"strconv"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewFromReader(t *testing.T) {
@@ -34,8 +35,8 @@ func TestNewFromReader(t *testing.T) {
 	for i, v := range arr {
 		var iv int
 		switch v.(type) {
-		case json.Number:
-			i64, err := v.(json.Number).Int64()
+		case stdjson.Number:
+			i64, err := v.(stdjson.Number).Int64()
 			assert.Equal(t, nil, err)
 			iv = int(i64)
 		case string:
@@ -45,10 +46,10 @@ func TestNewFromReader(t *testing.T) {
 	}
 
 	ma := js.Get("test").Get("array").MustArray()
-	assert.Equal(t, ma, []interface{}{json.Number("1"), "2", json.Number("3")})
+	assert.Equal(t, ma, []interface{}{stdjson.Number("1"), "2", stdjson.Number("3")})
 
 	mm := js.Get("test").Get("arraywithsubs").GetIndex(0).MustMap()
-	assert.Equal(t, mm, map[string]interface{}{"subkeyone": json.Number("1")})
+	assert.Equal(t, mm, map[string]interface{}{"subkeyone": stdjson.Number("1")})
 
 	assert.Equal(t, js.Get("test").Get("bignum").MustInt64(), int64(9223372036854775807))
 	assert.Equal(t, js.Get("test").Get("uint64").MustUint64(), uint64(18446744073709551615))
@@ -75,8 +76,8 @@ func TestSimplejsonGo11(t *testing.T) {
 	for i, v := range arr {
 		var iv int
 		switch v.(type) {
-		case json.Number:
-			i64, err := v.(json.Number).Int64()
+		case stdjson.Number:
+			i64, err := v.(stdjson.Number).Int64()
 			assert.Equal(t, nil, err)
 			iv = int(i64)
 		case string:
@@ -86,10 +87,10 @@ func TestSimplejsonGo11(t *testing.T) {
 	}
 
 	ma := js.Get("test").Get("array").MustArray()
-	assert.Equal(t, ma, []interface{}{json.Number("1"), "2", json.Number("3")})
+	assert.Equal(t, ma, []interface{}{stdjson.Number("1"), "2", stdjson.Number("3")})
 
 	mm := js.Get("test").Get("arraywithsubs").GetIndex(0).MustMap()
-	assert.Equal(t, mm, map[string]interface{}{"subkeyone": json.Number("1")})
+	assert.Equal(t, mm, map[string]interface{}{"subkeyone": stdjson.Number("1")})
 
 	assert.Equal(t, js.Get("test").Get("bignum").MustInt64(), int64(9223372036854775807))
 	assert.Equal(t, js.Get("test").Get("uint64").MustUint64(), uint64(18446744073709551615))

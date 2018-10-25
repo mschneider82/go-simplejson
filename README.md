@@ -3,7 +3,18 @@
 
 ### go-simplejson
 
-a Go package to interact with arbitrary handling indexed/array-type data (bitly lacks).
+
+this is a fork of github.com/gdaisukesuzuki/go-simplejson which is a fork of
+bitlys simplejson.
+
+a Go package to interact with arbitrary handling indexed/array-type data (bitly
+lacks).
+
+In this fork the json calls are replaced from encoding/json to the faster
+json-iterator/go library.
+
+json-iterator is expored to Jsoniter, so the properties like HTML encoding can be changed.
+
 
 ~~[![Build Status]~~~~(https://secure.travis-ci.org/bitly/go-simplejson.png)~~~~](http://travis-ci.org/bitly/go-simplejson)~~
 

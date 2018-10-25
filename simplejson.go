@@ -1,10 +1,17 @@
 package simplejson
 
 import (
-	"encoding/json"
 	"errors"
 	"log"
+
+	jsoniter "github.com/json-iterator/go"
 )
+
+var Jsoniter = jsoniter.Config{
+	EscapeHTML:             false,
+	SortMapKeys:            true,
+	ValidateJsonRawMessage: false,
+}.Froze()
 
 // returns the current implementation version
 func Version() string {
@@ -45,12 +52,12 @@ func (j *Json) Encode() ([]byte, error) {
 
 // EncodePretty returns its marshaled data as `[]byte` with indentation
 func (j *Json) EncodePretty() ([]byte, error) {
-	return json.MarshalIndent(&j.data, "", "  ")
+	return Jsoniter.MarshalIndent(&j.data, "", "  ")
 }
 
-// Implements the json.Marshaler interface.
+// Implements the Jsoniter.Marshaler interface.
 func (j *Json) MarshalJSON() ([]byte, error) {
-	return json.Marshal(&j.data)
+	return Jsoniter.Marshal(&j.data)
 }
 
 // Set modifies `Json` map by `key` and `value`

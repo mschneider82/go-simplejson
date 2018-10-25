@@ -1,7 +1,6 @@
 package simplejson
 
 import (
-	"encoding/json"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -136,16 +135,16 @@ func TestStdlibInterfaces(t *testing.T) {
 
 	raw := `{"name":"myobject","params":{"string":"simplejson"}}`
 
-	assert.Equal(t, nil, json.Unmarshal([]byte(raw), val))
+	assert.Equal(t, nil, Jsoniter.Unmarshal([]byte(raw), val))
 
 	assert.Equal(t, "myobject", val.Name)
 	assert.NotEqual(t, nil, val.Params.data)
 	s, _ := val.Params.Get("string").String()
 	assert.Equal(t, "simplejson", s)
 
-	p, err := json.Marshal(val)
+	p, err := Jsoniter.Marshal(val)
 	assert.Equal(t, nil, err)
-	assert.Equal(t, nil, json.Unmarshal(p, val2))
+	assert.Equal(t, nil, Jsoniter.Unmarshal(p, val2))
 	assert.Equal(t, val, val2) // stable
 }
 

@@ -4,16 +4,16 @@ package simplejson
 
 import (
 	"bytes"
-	"encoding/json"
+	stdjson "encoding/json"
 	"errors"
 	"io"
 	"reflect"
 	"strconv"
 )
 
-// Implements the json.Unmarshaler interface.
+// Implements the Jsoniter.Unmarshaler interface.
 func (j *Json) UnmarshalJSON(p []byte) error {
-	dec := json.NewDecoder(bytes.NewBuffer(p))
+	dec := Jsoniter.NewDecoder(bytes.NewBuffer(p))
 	dec.UseNumber()
 	return dec.Decode(&j.data)
 }
@@ -21,7 +21,7 @@ func (j *Json) UnmarshalJSON(p []byte) error {
 // NewFromReader returns a *Json by decoding from an io.Reader
 func NewFromReader(r io.Reader) (*Json, error) {
 	j := new(Json)
-	dec := json.NewDecoder(r)
+	dec := Jsoniter.NewDecoder(r)
 	dec.UseNumber()
 	err := dec.Decode(&j.data)
 	return j, err
@@ -30,8 +30,8 @@ func NewFromReader(r io.Reader) (*Json, error) {
 // Float64 coerces into a float64
 func (j *Json) Float64() (float64, error) {
 	switch j.data.(type) {
-	case json.Number:
-		return j.data.(json.Number).Float64()
+	case stdjson.Number:
+		return j.data.(stdjson.Number).Float64()
 	case float32, float64:
 		return reflect.ValueOf(j.data).Float(), nil
 	case int, int8, int16, int32, int64:
@@ -45,8 +45,8 @@ func (j *Json) Float64() (float64, error) {
 // Int coerces into an int
 func (j *Json) Int() (int, error) {
 	switch j.data.(type) {
-	case json.Number:
-		i, err := j.data.(json.Number).Int64()
+	case stdjson.Number:
+		i, err := j.data.(stdjson.Number).Int64()
 		return int(i), err
 	case float32, float64:
 		return int(reflect.ValueOf(j.data).Float()), nil
@@ -61,8 +61,8 @@ func (j *Json) Int() (int, error) {
 // Int64 coerces into an int64
 func (j *Json) Int64() (int64, error) {
 	switch j.data.(type) {
-	case json.Number:
-		return j.data.(json.Number).Int64()
+	case stdjson.Number:
+		return j.data.(stdjson.Number).Int64()
 	case float32, float64:
 		return int64(reflect.ValueOf(j.data).Float()), nil
 	case int, int8, int16, int32, int64:
@@ -76,8 +76,8 @@ func (j *Json) Int64() (int64, error) {
 // Uint64 coerces into an uint64
 func (j *Json) Uint64() (uint64, error) {
 	switch j.data.(type) {
-	case json.Number:
-		return strconv.ParseUint(j.data.(json.Number).String(), 10, 64)
+	case stdjson.Number:
+		return strconv.ParseUint(j.data.(stdjson.Number).String(), 10, 64)
 	case float32, float64:
 		return uint64(reflect.ValueOf(j.data).Float()), nil
 	case int, int8, int16, int32, int64:
